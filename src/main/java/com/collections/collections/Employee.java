@@ -5,10 +5,20 @@ import java.util.Objects;
 public class Employee {
     private String firstName;
     private String lastName;
+    private Integer salary;
+    private Integer departmentId;
 
+    public Employee(String firstName, String lastName, Integer salary, Integer departmentId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.salary = salary;
+        this.departmentId = departmentId;
+    }
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.salary = 0;
+        this.departmentId = 1;
     }
 
     public String getFirstName() {
@@ -25,6 +35,22 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getFullName() {
