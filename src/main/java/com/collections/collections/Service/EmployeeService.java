@@ -4,6 +4,8 @@ import com.collections.collections.Employee;
 import com.collections.collections.Exception.EmployeeAlreadyAddedException;
 import com.collections.collections.Exception.EmployeeNotFoundException;
 import com.collections.collections.Exception.EmployeeStorageIsFullException;
+import com.collections.collections.Exception.InvalidNameException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,7 +18,10 @@ public class EmployeeService implements EmployeeServiceInterface {
     }
     @Override
     public Employee addEmployee(String firstName, String lastName) {
+        validate(firstName, lastName);
         Employee employee = new Employee(firstName, lastName);
+        employee.setFirstName(StringUtils.capitalize(employee.getFirstName().toLowerCase()));
+        employee.setLastName(StringUtils.capitalize(employee.getLastName().toLowerCase()));
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -45,5 +50,11 @@ public class EmployeeService implements EmployeeServiceInterface {
         return Collections.unmodifiableCollection(employees.values());
     }
 
-
+    private void validate(String...names){
+        for (String name: names){
+            if (!StringUtils.isAlpha(name)){
+                throw new InvalidNameException("Name must be in text format");
+            }
+        }
+    }
 }
